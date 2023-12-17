@@ -4,11 +4,12 @@ use plotters_piston::piston_window::{EventLoop, PistonWindow, WindowSettings};
 use systemstat::platform::common::Platform;
 use systemstat::System;
 
-use std::collections::vec_deque::VecDeque;
+use std::collections::VecDeque;
 
 const FPS: u32 = 10;
 const LENGTH: u32 = 20;
 const N_DATA_POINTS: usize = (FPS * LENGTH) as usize;
+
 fn main() {
     let mut window: PistonWindow = WindowSettings::new("Real Time CPU Usage", [450, 300])
         .samples(4)
@@ -19,6 +20,7 @@ fn main() {
     let mut load_measurement: Vec<_> = (0..FPS).map(|_| sys.cpu_load().unwrap()).collect();
     let mut epoch = 0;
     let mut data = vec![];
+
     while let Some(_) = draw_piston_window(&mut window, |b| {
         let cpu_loads = load_measurement[epoch % FPS as usize].done()?;
 
