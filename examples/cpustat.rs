@@ -62,13 +62,13 @@ fn main() {
             ))?
             .label(format!("CPU {}", idx))
             .legend(move |(x, y)| {
-                Rectangle::new([(x - 5, y - 5), (x + 5, y + 5)], &Palette99::pick(idx))
+                Rectangle::new([(x - 5, y - 5), (x + 5, y + 5)], Palette99::pick(idx))
             });
         }
 
         cc.configure_series_labels()
-            .background_style(&WHITE.mix(0.8))
-            .border_style(&BLACK)
+            .background_style(WHITE.mix(0.8))
+            .border_style(BLACK)
             .draw()?;
 
         load_measurement[epoch % FPS as usize] = sys.cpu_load()?;
